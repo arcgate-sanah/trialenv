@@ -1,15 +1,10 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3.10
 
-# Set environment variables
-ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE=projectname.settings
+WORKDIR /app
 
-# Create and set the working directory
-WORKDIR /newproject/
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
+COPY . .
 
-# Expose port 8000 for the Django development server
-EXPOSE 8000
-
-
+CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000"]
