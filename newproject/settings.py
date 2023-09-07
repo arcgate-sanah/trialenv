@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,13 +23,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "drf_yasg",
-    "emp_register.apps.EmpRegisterConfig",
-    "crispy_forms",
-    "crispy_bootstrap3",
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "fileshare.apps.FileshareConfig",
 ]
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap3"
 
-CRISPY_TEMPLATE_PACK = "bootstrap3"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -38,6 +37,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "newproject.urls"
@@ -112,10 +113,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = config("STATIC_URL", default="/static/")
-MEDIA_URL = config("MEDIA_URL", default="/media/")
-MEDIA_ROOT = config("MEDIA_ROOT", default="/app/media/")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+}
+
+
+# settings.py
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
