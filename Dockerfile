@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.8
+FROM python:3.10.12
 
 # Set environment variables for Django
 ENV DJANGO_SETTINGS_MODULE=newproject.settings
@@ -35,13 +35,17 @@ RUN pip install -U drf-yasg
 RUN pip install djangorestframework
 RUN pip install djangorestframework-simplejwt
 RUN pip install psycopg
-RUN python manage.py migrate --traceback
+
+
 
 # Create a superuser (you can remove this line for production)
-RUN echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell
+
 
 # Expose the port the application will run on
 EXPOSE 8000
 
 # Start the application
+RUN python manage.py collectstatic --noinput
+RUN pip install gunicorn
 CMD ["gunicorn", "newproject.wsgi:application", "--bind", "0.0.0.0:8000"]
+

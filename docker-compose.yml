@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  web:
+    image: python-django:latest
+    ports:
+      - "8000:8000"
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: newprojectdb
+      POSTGRES_USER: arcgate
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5433:5432"

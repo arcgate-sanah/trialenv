@@ -1,0 +1,11 @@
+"DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ]
+
+
+docker build --tag python-django .
+docker run --publish 8000:8000 python-django
+docker-compose up
