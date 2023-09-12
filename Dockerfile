@@ -41,11 +41,12 @@ RUN pip install psycopg
 # Create a superuser (you can remove this line for production)
 
 
-# Expose the port the application will run on
-EXPOSE 8000
+# # Expose the port the application will run on
+# EXPOSE 8000
 
 # Start the application
 RUN python manage.py collectstatic --noinput
+
 RUN pip install gunicorn
 CMD ["gunicorn", "newproject.wsgi:application", "--bind", "0.0.0.0:8000"]
 

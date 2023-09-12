@@ -8,8 +8,8 @@ services:
   database:
     image: postgres:latest
     environment:
-      POSTGRES_DB: newprojectdb
-      POSTGRES_USER: arcgate
-      POSTGRES_PASSWORD: root
+      POSTGRES_DB: arc_payroll
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
     ports:
       - "5433:5432"

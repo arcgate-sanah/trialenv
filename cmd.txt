@@ -5,7 +5,23 @@
         "rest_framework.authentication.TokenAuthentication",
     ]
 
-
+#build django
 docker build --tag python-django .
 docker run --publish 8000:8000 python-django
-docker-compose up
+docker compose up
+
+
+sudo apt autoremove pgadmin4
+
+
+
+
+Disk Error -> Increase disk size
+
+gnome-diskd
+  124  gnome-disks
+  125  cd /boot/
+  126  ll
+  127  uname -r
+  128  rm -rf config-5.15.0-48-generic  initrd.img-5.15.0-48-generic System.map-5.15.0-48-generic
+  129  apt autoremove
